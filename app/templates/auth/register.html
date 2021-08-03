@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{'Edit Profile' if current_user.is_authenticated else 'Register'}}
+{% endblock %}
+
+{% block content %}
+<h1>{{'Edit Profile' if current_user.is_authenticated else 'Register'}}</h1>
+<form action="{{ url_for('auth.edit_profile') if current_user.is_authenticated else url_for('auth.register') }}" method="POST">
+	{{ form.hidden_tag() }}
+	
+	{{ form.first.label(class="form-label") }}
+	{{ form.first(class="form-control", value=current_user.first_name) }}
+
+	{{ form.last.label(class="form-label") }}
+	{{ form.last(class="form-control", value=current_user.last_name) }}
+
+	{{ form.email.label(class="form-label") }}
+	{{ form.email(class="form-control", value=current_user.email) }}
+
+	{% for error in form.email.errors %}
+		<small style="color: red">{{ error }}</small><br>
+	{% endfor %}
+
+	{{ form.password.label(class="form-label") }}
+	{{ form.password(class="form-control") }}
+
+	{{ form.conf_pass.label(class="form-label") }}
+	{{ form.conf_pass(class="form-control") }}
+
+	{% for error in form.conf_pass.errors %}
+		<small style="color: red">{{ error }}</small><br>
+	{% endfor %}
+
+	{{ form.submit(class="btn btn-primary") }}
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+.container {
+	margin: 50px;
+}
+
+.btn {
+	margin: 15px 0px;
+}
+
+.info {
+	display: flex;
+
+}
+
+.wrapper {
+	flex: 1;
+}
+
+img {
+	height: 100%;
+	/* Might not work on all browsers, according to the internet. "It works on my machine." */
+	image-rendering: crisp-edges;
+}

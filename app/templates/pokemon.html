@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Pokemon Lookup
+{% endblock %}
+
+{% block content %}
+<!--<form action="/pokemon" method="POST">
+	<div class="form-group">
+		<label for="name">Pokemon Name</label>
+		<input type="text" name="name" class="form-control" id="name">
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>-->
+
+<form action="{{url_for('main.pokemon')}}" method="POST">
+	{{ form.hidden_tag() }}
+	{{ form.name.label(class="form-label") }}
+	{{ form.name(class="form-control") }}
+	{{ form.submit(class="btn btn-primary") }}
+</form>
+
+{% if info %}
+<div class="info">
+	<div class="wrapper">
+		<ul class="list-group">
+			<li class="list-group-item active">{{info['name']}}</li>
+			<li class="list-group-item">Type(s): {{', '.join(info['types'])}}</li>
+			<li class="list-group-item">Abilities: {{', '.join(info['abilities'])}}</li>
+			<li class="list-group-item">Base Experience: {{info['exp']}}</li>
+			{% for stat in info['stats'] %}
+			<li class="list-group-item">Base {{stat['name']}}: {{stat['level']}}</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="wrapper">
+		<img src="{{info['sprite']}}">
+	</div>
+</div>
+{% endif %}
+<small style="color: red">{{error}}</small>
+{% endblock %}
